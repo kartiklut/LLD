@@ -1,0 +1,107 @@
+										//CODE WITHOUT STRATEGY DESIGN PATTERN
+//Use case - Sorting Algorithms
+
+//Parent class
+class Sorting{
+	public int[] sort(int ;[]){
+		
+	}
+}
+
+//child Cclass1
+class BubbleSort extends Sorting{
+	@Override
+	public int[] sort(int arr[]){
+		//Some code
+	}
+}
+
+//child class2
+class MergeSort extends Sorting{
+	@Override
+	public int[] sort(int arr[]){
+		//Some code
+	}
+}
+
+//Now in both the child classes some duplicacy of code is present. Means on same level some same code is present which is not present in parent class
+//This will result in code duplicacy
+
+class Main{
+	psvm(){
+		Sorting sort=new BubbleSort();
+		sort.sort(arr);
+		Sorting sort=new MergeSort();
+		sort.sort(arr);
+	}
+}
+
+//if in future any new algorithms comes and i again have to use same process for them also and it will create more code duplicacy
+To avoid this we have a pattern called STRATEGY PATTERN
+
+//in strategy pattern we create a Interface Called Strategy
+And classes implementing that interface called Concrete Strategies=>It will have different types of strategies avl for us.
+Now we will not use these strategies directly instead we pass context of the strategy we want to use in the context class
+And that context class is responsible for providing strategy/functionality
+We will call the context class from out client code/main and pass the context/strategy and then execute the function of my desired strategy
+In this way i can dynamically switch between strategies at the runtime.
+
+
+public interface SortingStrategyInterface{
+	public int[] sort();
+}
+
+public class BubbleSortConcreteStrategy implements SortingStrategyInterface{
+	@Override
+	public int[] sort(int arr[]){
+		//some code as per my need
+	}
+}
+
+public class MergeSortConcreteStrategy implements SortingStrategyInterface{
+	@Override
+	public int[] sort(int arr[]){
+		//some code as per my need
+	}
+}
+
+public StrategyContextClass{
+
+	SortingStrategyInterface sortingStrategyInterface;
+	
+	public setStrategy(SortingStrategyInterface sortingStrategyInterface){
+		this.sortingStrategyInterface=sortingStrategyInterface;
+	}
+
+	public int[] sort(int arr[]){
+		//COMMON CODE WHICH WE WERE USING BEFORE
+		sortingStrategyInterface.sort();
+	}
+}
+
+class Client{
+	psvm(){
+		StrategyContextClass strategyContextClass=new StrategyContextClass();
+		strategyContextClass.setStrategy(new MergeSortConcreteStrategy());
+		strategyContextClass.sort(arr);
+
+		//dynamically switch strategy
+		strategyContextClass.setStrategy(new BubbleSortConcreteStrategy());
+		strategyContextClass.setStrategy.sort(arr);
+	}
+}
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
