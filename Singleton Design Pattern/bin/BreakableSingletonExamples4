@@ -1,0 +1,32 @@
+Here there are multiple ways in which we can break the singleton pattern.
+
+1.In Multithreading Env it will not work
+=> So we have to make either getInstance() method Synchronized but that will create race condition.
+=> So to avoid this we can make the static initialization block where we are creating instance with Double check locking(DCL)
+
+
+2. Deserialization
+=>When we Serialize the class with Fileoutputstream and then Deserialize the Serializable Singleton Class then internally,
+  at the time of deserialization JVM internally call readResolve() method which will return the new instance of Serializable Singleton Class.
+=> So to avoid that we need to override the readResolve() method and need to return the same object.
+	@override
+	public SingletonClass readResolve(){
+		return instance; //which is already created
+	}
+
+3. Using Reflection API
+=> Singleton pattern will break with the help of reflection API.
+=> Cuz in reflection API we can change the identifier of the constructor manually and then that private constructor can be accessed
+   anywhere and we can create as many objects as we can so that is no more Singleton.
+=> So to avoid that we can use ENUMS.
+
+public enum SingletonClass{
+	INSTANCE;
+	
+	public void makeAnyMethodHere(){}
+}
+ Using enums we avoid any breaking be it multithreading,reflection,deserialization.
+ As JVM calls enum itself so only one instance will be created and we can access it using
+ 
+ 
+ SingletonClass.INSTANCE.makeAnyMethodHere();
